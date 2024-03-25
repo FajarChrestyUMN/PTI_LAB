@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    background: #fcfcfc;
+}
+.image-container {
+  flex: 0 0 auto; 
+  margin-right: 20px; 
+}
+
+.image-container img {
+  max-width: 100px; 
+  height: auto; 
+}
+
+.container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accordion{
+    width: 40%;
+    background: transparent;
+    flex: 1;
+}
+
+.accordion-item{
+    background: #bdbcbb;
+    border: none;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1),-2px -2px 8px rgba(0,0,0,0.1);
+}
+
+.accordion-body{
+    background: #bdbcbb;
+    font-size: 0.7rem;
+}
+
+.accordion-button{
+    font-size: 0.8rem;
+    background: transparent;
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.1);
+    font-weight: 500;
+}
+
+.accordion-button:focus{
+    box-shadow: none;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.accordion-button:not(.collapsed){
+    background: rgba(0,0,0,0.1);
+    color: black;
+    box-shadow: none;
+}
+
+.accordion-button::after{
+    background-image: none;
+    content:"\f0d7";
+    font-family: fontawesome;
+    width: auto;
+    height: auto;
+}
+
+.accordion-button:not(.collapsed)::after{
+    background-image: none;
+}
+
+.button-container {
+  margin-top: 30px; 
+  text-align: center; 
+  display: flex;
+  justify-content: center;
+}
+
+.custom-button {
+  background-color: #8fbbe9; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+.custom-button:hover {
+  background-color: #5ba5f5; 
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+.navbar {
+  background-color: #010102; 
+  padding: 10px 0; 
+  overflow: hidden; 
+}
+
+.navbar-brand {
+  color: #fff; 
+  font-weight: bold;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row; 
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav .nav-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.navbar-nav .nav-link {
+  color: #fff; 
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar-nav .nav-link:active {
+  background-color: rgba(255, 255, 255, 0.4); 
+}
+
+.navbar-nav .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.4); 
+}
+
+.navbar-nav .nav-link {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+@media (max-width: 575.98px) {
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-nav .nav-item {
+    text-align: left;
+  }
+
+  .navbar-nav .about-me {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 10px; 
+  }
+}
+
+.dropdown-menu {
+  min-width: auto !important; 
+  max-width: 100% !important; 
+  width: fit-content !important; 
+  max-height: 200px; 
+  overflow-y: auto; 
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .navbar-nav .nav-item.dropdown:hover .dropdown-menu .nav-link {
+    width: auto;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+}

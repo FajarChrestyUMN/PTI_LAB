@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('bg1.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+  .form-control {
+        background-color: #eee;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+        border-color: black;
+        border-width: 5px;
+     
+      }
+
+ .navbar {
+      background-color: #010102; 
+      padding: 10px 0; 
+      overflow: hidden; 
+    }
+
+    .navbar-brand {
+      color: #fff; 
+      font-weight: bold;
+    }
+
+    .navbar-nav {
+      display: flex;
+      flex-direction: row; 
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar-nav .nav-item {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff; 
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .navbar-nav .nav-link:active {
+      background-color: rgba(255, 255, 255, 0.4); 
+    }
+
+    .navbar-nav .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.4); 
+    }
+
+    .navbar-nav .nav-link {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    @media (max-width: 575.98px) {
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar-nav .nav-item {
+        text-align: left;
+      }
+
+      .navbar-nav .about-me {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-top: 10px; 
+      }
+    }
+
+    .dropdown-menu {
+      min-width: auto !important; 
+      max-width: 100% !important; 
+      width: fit-content !important; 
+      max-height: 200px; 
+      overflow-y: auto; 
+    }
+
+    @media (max-width: 991.98px) {
+      .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+      }
+
+      .navbar-nav .nav-item.dropdown:hover .dropdown-menu .nav-link {
+        width: auto;
+        white-space: nowrap;
+        overflow-x: hidden;
+      }
+    }
+

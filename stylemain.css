@@ -1,0 +1,177 @@
+ body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            margin: 20px;
+        }
+        .balance, .transactions {
+            padding: 10px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+        .balance {
+            background-color: #f5f2f2;
+            width: 20%;
+            margin-right: 20px;
+        }
+        .transactions {
+            background-color: #f5f2f2;
+            width: 80%;
+            margin-left: 10px;
+        }
+        .transaction-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .transaction-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+        }
+        .income {
+            background-color: green;
+        }
+        .expense {
+            background-color: red;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow:hidden;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .form-group label {
+            text-align: left;
+            font-weight: bold;
+            display: block;
+        }
+
+    .navbar {
+      background-color: #010102; 
+      padding: 10px 0; 
+      overflow: hidden; 
+    }
+
+    .navbar-brand {
+      color: #fff; 
+      font-weight: bold;
+    }
+
+    .navbar-nav {
+      display: flex;
+      flex-direction: row; 
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar-nav .nav-item {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff; 
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .navbar-nav .nav-link:active {
+      background-color: rgba(255, 255, 255, 0.4); 
+    }
+
+    .navbar-nav .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.4); 
+    }
+
+    .navbar-nav .nav-link {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    @media (max-width: 575.98px) {
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar-nav .nav-item {
+        text-align: left;
+      }
+
+      .navbar-nav .about-me {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-top: 10px; 
+      }
+    }
+
+    .dropdown-menu {
+      min-width: auto !important; 
+      max-width: 100% !important; 
+      width: fit-content !important; 
+      max-height: 200px; 
+      overflow-y: auto; 
+    }
+
+    @media (max-width: 991.98px) {
+      .navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+      }
+
+      .navbar-nav .nav-item.dropdown:hover .dropdown-menu .nav-link {
+        width: auto;
+        white-space: nowrap;
+        overflow-x: hidden;
+      }
+    }
+
+     #transaction-nominal {
+            background-color: #d4edda;
+        }
+        .transaction-item {
+            margin-bottom: 10px; 
+        }
+        .transaction-name {
+            font-weight: bold; 
+        }
+        .transaction-category {
+            margin-top: 5px; 
+        }
+        .balance {
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+        .income-balance {
+            background-color: #28a745; 
+        }
+        .outcome-balance {
+            background-color: #dc3545; 

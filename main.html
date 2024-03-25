@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Tracker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylemain.css">
+   
+</head>
+<body>
+    <div id="mainPage" class="container" style="display: none;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <h2 style="margin-bottom: 20px;">Hello, <span id="username-placeholder"></span>!</h2>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="#" onclick="navigate('Main')" class="nav-link active">Main</a></li>
+                    <li class="nav-item"><a href="incomepage.html" onclick="navigate('Income')" class="nav-link">Income</a></li>
+                    <li class="nav-item"><a href="outcomepage.html" onclick="navigate('Outcome')" class="nav-link">Outcome</a></li>
+                    <li class="nav-item about-me"><a href="aboutuspage.html" onclick="navigate('About')" class="nav-link">About us</a></li>
+                    <li class="nav-item"><a href="loginpage.html" onclick="logout()" class="nav-link">Logout</a></li>
+
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="balance" id="balance-container">
+                <h2>Saldo Sekarang</h2>
+                <p id="saldo">Rp 0.000,00</p>
+            </div>
+            <div class="transactions">
+                <h2>Daftar Transaksi</h2>
+                <ul class="transaction-list">
+                </ul>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+            function updateBalanceAndTransactions() {
+                const transactions = document.querySelectorAll('.transaction-item');
+                let saldo = 0;
+
+                transactions.forEach(transaction => {
+                    const amountText = transaction.querySelector('span:last-child').textContent;
+                    const amount = parseFloat(amountText.replace(/[^\d.-]+/g, '').replace(/\./g, '').replace(',', '.').replace(/\s/g, ''));
+                    
+                    saldo += amount; 
+                });
+
+                const saldoElement = document.getElementById('saldo');
+                const formattedSaldo = saldo >= 0 ? `Rp ${saldo.toLocaleString('id-ID')}` : `- Rp ${Math.abs(saldo).toLocaleString('id-ID')}`;
+                saldoElement.textContent = formattedSaldo; 
+
+                const balanceContainer = document.getElementById('balance-container');
+                if (saldo >= 0) {
+                    balanceContainer.classList.remove('outcome-balance');
+                    balanceContainer.classList.add('income-balance');
+                } else {
+                    balanceContainer.classList.remove('income-balance');
+                    balanceContainer.classList.add('outcome-balance');
+                }
+            }
+
+           document.addEventListener('DOMContentLoaded', function() {
+    const username = localStorage.getItem('username');
+    if (username) {
+        document.getElementById('mainPage').style.display = 'block';
+        document.getElementById('username-placeholder').textContent = username;
+
+        const currentPage = window.location.href.split('/').pop();
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            if (link.href.endsWith(currentPage)) {
+                link.classList.add('active');
+            }
+        });
+
+        let newTransactionData = localStorage.getItem('newTransaction');
+        if (newTransactionData) {
+            const newTransaction = JSON.parse(newTransactionData);
+            addTransactionToList(newTransaction);
+
+            // Ubah saldo tanpa menghapus data transaksi dari localStorage
+            const currentSaldoText = localStorage.getItem('currentSaldo');
+            const currentSaldo = parseFloat(currentSaldoText.replace(/[^\d.-]+/g, '').replace(/\./g, '').replace(',', '.').replace(/\s/g, ''));
+            const updatedSaldo = currentSaldo + newTransaction.nominal;
+            localStorage.setItem('currentSaldo', `${updatedSaldo >= 0 ? 'Rp ' : '- Rp '}${Math.abs(updatedSaldo).toLocaleString('id-ID')}`);
+        }
+
+        updateBalanceAndTransactions();
+    } else {
+        window.location.href = "index.html";
+    }
+});
+
+            function addTransactionToList(transaction) {
+                const transactionList = document.querySelector('.transaction-list');
+                const newTransactionItem = document.createElement('li');
+
+                newTransactionItem.className = `transaction-item ${transaction.category}`; 
+
+                newTransactionItem.innerHTML = `
+                    <span class="transaction-name bold">${transaction.name}</span>
+                    <br>
+                    <span class="transaction-category">${transaction.category}</span>
+                    <br>
+                    <span>${transaction.nominal >= 0 ? '+ ' : '- '}Rp ${Math.abs(transaction.nominal).toLocaleString('id-ID')}</span>
+                `;
+                            
+                transactionList.appendChild(newTransactionItem);
+
+                // Perbarui saldo
+                const saldoElement = document.getElementById('saldo');
+                const currentSaldoText = saldoElement.textContent;
+                const currentSaldo = parseFloat(currentSaldoText.replace(/[^\d.-]+/g, '').replace(/\./g, '').replace(',', '.').replace(/\s/g, ''));
+                const updatedSaldo = currentSaldo + transaction.nominal;
+                saldoElement.textContent = `${updatedSaldo >= 0 ? 'Rp ' : '- Rp '}${Math.abs(updatedSaldo).toLocaleString('id-ID')}`;
+
+                const balanceContainer = document.getElementById('balance-container');
+                if (updatedSaldo >= 0) {
+                    balanceContainer.classList.remove('outcome-balance');
+                    balanceContainer.classList.add('income-balance');
+                } else {
+                    balanceContainer.classList.remove('income-balance');
+                    balanceContainer.classList.add('outcome-balance');
+                }
+            }
+                function navigate(page) {
+            document.querySelectorAll('.nav-item a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            document.querySelector(`.${page.toLowerCase()} a`).classList.add('active');
+
+            alert(`You clicked on ${page} page.`);
+
+            if (page === 'Income' || page === 'Outcome') {
+                setTimeout(() => {
+                    alert("Transaction successful!");
+
+                    updateBalanceAndTransactions();
+                }, 1000);
+            }
+        }
+
+        function logout() {
+    localStorage.clear();;
+    window.location.href = "index.html";
+}
+
+    </script>
+</body>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Tracker</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="stylemain.css">
+</head>
+<body>
+  <div id="loginPage" class="container">
+    <h2 class="text-center mt-5">Money Tracker</h2>
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-6">
+        <img src="moneytrack.jpg" class="img-fluid d-block mx-auto" style="max-width: 357px;" alt="Money Track Image">
+      </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-6">
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">Input Your Name :</label>
+            <input type="text" id="username" name="username" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-success btn-block">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="mainPage" class="container" style="display: none;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <span class="navbar-brand">Money Tracker</span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav ml-auto"> 
+          <li class="nav-item"><a href="#" onclick="navigate('Main')" class="nav-link active">Main</a></li>
+          <li class="nav-item"><a href="incomepage.html" onclick="navigate('Income')" class="nav-link">Income</a></li>
+          <li class="nav-item"><a href="#" onclick="navigate('Outcome')" class="nav-link">Outcome</a></li>
+          <li class="nav-item about-me"><a href="#" onclick="navigate('About')" class="nav-link">About us</a></li> 
+        </ul>
+      </div>
+    </nav>
+
+    
+       <div class="container">
+            <div class="balance">
+                <h2>Saldo Sekarang</h2>
+                <p id="saldo">Rp 0.000,00</p>
+            </div>
+            <div class="transactions">
+                <h2>Daftar Transaksi</h2>
+                
+    <ul class="transaction-list">
+        <li class="transaction-item income">
+            <span>Gaji Bulan Ini</span>
+            <span>+ Rp 2.000.000</span>
+        </li>
+        <li class="transaction-item expense">
+            <span>Makan Siang</span>
+            <span>- Rp 100.000</span>
+        </li>
+        <li class="transaction-item expense">
+            <span>Beli Bensin</span>
+            <span>- Rp 50.000</span>
+        </li>
+        <li class="transaction-item income">
+            <span>Bonus</span>
+            <span>+ Rp 100.000</span>
+        </li>
+    </ul>
+</div>
+        </div>
+       
+    </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('loginPage').style.display = 'block';
+      document.getElementById('mainPage').style.display = 'none';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault ();
+      const username = document.getElementById('username').value;
+      localStorage.setItem('username', username);
+      document.getElementById('loginPage').style.display = 'none';
+      document.getElementById('mainPage').style.display = 'block';
+      document.querySelector('.navbar-brand').innerHTML = `Hello, ${username}!`;
+    });
+
+    function navigate(page) {
+      document.querySelectorAll('.nav-item a').forEach(link => {
+        link.classList.remove('active');
+      });
+
+      document.querySelector(`.${page.toLowerCase()}Link`).classList.add('active');
+
+      alert(`You clicked on ${page} page.`);
+    }
+
+
+     function updateBalance() {
+    const transactions = document.querySelectorAll('.transaction-item');
+    let saldo = 0;
+
+    transactions.forEach(transaction => {
+        const amountText = transaction.querySelector('span:last-child').textContent;
+        const amount = parseFloat(amountText.replace(/[^\d.-]+/g, '').replace(/\./g, '').replace(',', '.').replace(/\s/g, ''));
+        if (transaction.classList.contains('income')) {
+            saldo += amount; // Pemasukan
+        } else {
+            saldo -= amount; // Pengeluaran
+        }
+    });
+    document.getElementById('saldo').textContent = `Rp ${saldo.toLocaleString('id-ID')}`;
+}
+updateBalance();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Income Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        @media (max-width: 768px) {
+            .form-box {
+                max-width: 80%;
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="mainPage" class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <h2 style="margin-bottom: 20px;">Hello, <span id="username-placeholder"></span>!</h2>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="main.html" class="nav-link">Main</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link active">Income</a></li>
+                    <li class="nav-item"><a href="outcomepage.html" class="nav-link">Outcome</a></li>
+                    <li class="nav-item about-me"><a href="aboutuspage.html" class="nav-link">About us</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <center><h1 style="color: white; font-weight: bolder;">Income</h1></center>
+            <br>
+            <form class="form-box" id="income-form">
+                <div class="form-group">
+                    <label for="transaction-name"><strong style="color: white;">Nama Transaksi</strong></label>
+                    <input type="text" class="form-control" id="transaction-name" required />
+                </div>
+                <div class="form-group">
+                    <label for="transaction-nominal"><strong style="color: white;">Nominal Transaksi</strong></label>
+                    <input type="number" class="form-control" id="transaction-nominal" required />
+                </div>
+                <div class="form-group">
+                    <label for="transaction-category"><strong style="color: white;">Kategori Transaksi</strong></label>
+                    <select class="form-control" id="transaction-category" required>
+                        <option value="" selected>-- Pilih Kategori --</option>
+                        <option value="makan">Makan</option>
+                        <option value="main">Main</option>
+                        <option value="edukasi">Edukasi</option>
+                        <option value="belanja">Belanja</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                </div>
+                <center><button type="submit" id="submit-btn" class="btn btn-primary" style="font-weight: bolder;">Submit</button></center>
+            </form>
+
+            <ul class="transaction-list"></ul>
+
+            <div id="saldo">Rp 0</div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('mainPage').style.display = 'block';
+            document.getElementById('username-placeholder').textContent = username;
+
+            const currentPage = window.location.href.split('/').pop();
+            document.querySelectorAll('.nav-item a').forEach(link => {
+                if (link.href.endsWith(currentPage)) {
+                    link.classList.add('active');
+                }
+            });
+        } else {
+            window.location.href = "index.html";
+        }
+    });
+
+    document.getElementById('income-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const transactionName = document.getElementById('transaction-name').value.trim();
+        const transactionNominal = parseFloat(document.getElementById('transaction-nominal').value.trim());
+        const transactionCategory = document.getElementById('transaction-category').value.trim();
+
+        const newTransaction = {
+            name: transactionName,
+            nominal: transactionNominal,
+            category: transactionCategory
+        };
+        localStorage.setItem('newTransaction', JSON.stringify(newTransaction));
+
+        const saldoElement = document.getElementById('saldo');
+        const currentSaldoText = saldoElement.textContent;
+        const currentSaldo = parseFloat(currentSaldoText.replace(/[^\d.-]+/g, '').replace(/\./g, '').replace(',', '.').replace(/\s/g, ''));
+        const updatedSaldo = currentSaldo + transactionNominal;
+        saldoElement.textContent = `Rp ${updatedSaldo.toLocaleString('id-ID')}`;
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Transaksi Berhasil!',
+            showConfirmButton: false,
+            timer: 1500
+        }).then((result) => {
+            window.location.href = "main.html";
+        });
+    });
+    </script>
+</body>
+</html>
